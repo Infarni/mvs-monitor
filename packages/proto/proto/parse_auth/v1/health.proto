@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package parse_auth.v1;
+
+service HealthService {
+    rpc GetHealthCheck(GetHealthCheckRequest) returns (GetHealthCheckResponse);
+}
+
+message GetHealthCheckRequest {}
+
+message GetHealthCheckResponse {
+    bool status = 1;
+}

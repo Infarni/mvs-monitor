@@ -1,0 +1,43 @@
+{
+    "data": [
+        {
+            "id": 110,
+            "name": "ТСЦ МВС № 6141",
+            "latitude": 49.54513,
+            "longitude": 25.539046,
+            "region": "Тернопільська область",
+            "district": "Тернопільський район",
+            "city": "с. Підгородне",
+            "street": "вул. Стрийська",
+            "building": "5 ",
+            "office": null,
+            "allowOnlineCount": 1
+        },
+        {
+            "id": 132,
+            "name": "ТСЦ МВС № 7141",
+            "latitude": 49.43924,
+            "longitude": 32.033051,
+            "region": "Черкаська область",
+            "district": "Черкаський район",
+            "city": "м. Черкаси",
+            "street": "вул. Лесі Українки",
+            "building": "21 ",
+            "office": null,
+            "allowOnlineCount": 1
+        },
+        {
+            "id": 154,
+            "name": "ТСЦ МВС № 8049",
+            "latitude": 50.445254,
+            "longitude": 30.633944,
+            "region": "м. Київ",
+            "district": null,
+            "city": "м. Київ",
+            "street": "вул. Павла Усенка",
+            "building": "8 ",
+            "office": null,
+            "allowOnlineCount": 1
+        }
+    ]
+}

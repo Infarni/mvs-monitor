@@ -1,0 +1,9 @@
+export const CHECK_INTERVAL_MS = 30 * 1000;
+
+export const API_TIMEOUT_INTERVAL_MS = 15 * 1000;
+
+export const LOGIN_STEP_INTERVAL_MS = 5 * 1000;
+
+export const DOCUMENT_LOAD_INVERVAL_MS = 30 * 1000;
+
+export const ID_GOV_FINISH_AUTHORIZE_INVERVAL_MS = 60 * 1000;

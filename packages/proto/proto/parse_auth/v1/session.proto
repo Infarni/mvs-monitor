@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package parse_auth.v1;
+
+service SessionService {
+  rpc GetSession(GetSessionRequest) returns (GetSessionResponse);
+
+  rpc CreateSession(CreateSessionRequest) returns (CreateSessionResponse);
+
+  rpc LockSession(LockSessionRequest) returns (LockSessionResponse);
+
+  rpc RemoveSession(RemoveSessionRequest) returns (RemoveSessionResponse);
+}
+
+message GetSessionRequest {
+    string operation_id = 1;
+}
+
+message GetSessionResponse {
+  string session_id = 1;
+  string cookies = 2;
+}
+
+message CreateSessionRequest {}
+
+message CreateSessionResponse {
+    string operation_id = 1;
+}
+
+message LockSessionRequest {
+    string session_id = 1;
+}
+
+message LockSessionResponse {}
+
+message RemoveSessionRequest {
+    string session_id = 1;
+}
+
+message RemoveSessionResponse {}

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package parse.v1;
+
+service OptionsService {
+    rpc GetOptions(GetOptionsRequest) returns (GetOptionsResponse);
+}
+
+message GetOptionsRequest {
+    optional string id = 1;
+}
+
+message GetOptionsResponse {
+    repeated Option options = 1;
+}
+
+message Option {
+    string id = 1;
+    string name = 2;
+    bool has_chidrens = 3;
+}

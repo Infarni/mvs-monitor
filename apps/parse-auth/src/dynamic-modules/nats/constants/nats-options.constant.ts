@@ -1,0 +1,1 @@
+export const PARSE_AUTH_NATS_SERVICE = Symbol('PARSE_AUTH_NATS_SERVICE');

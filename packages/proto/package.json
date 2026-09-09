@@ -1,0 +1,34 @@
+{
+  "name": "@mvs-monitor/proto",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "generate": "buf generate",
+    "build": "buf lint && buf generate && tsc",
+    "lint": "buf lint",
+    "clean": "rm -rf dist"
+  },
+  "files": [
+    "dist",
+    "proto"
+  ],
+  "main": "index.js",
+  "types": "index.d.ts",
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "ts-proto": "^2.12.1",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  },
+  "exports": {
+    "./proto/*": "./proto/*",
+    "./common": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/proto/*.d.ts",
+      "import": "./dist/proto/*.js"
+    }
+  }
+}

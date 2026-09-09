@@ -1,0 +1,17 @@
+{
+    "data": [
+        {
+            "id": 147,
+            "name": "ТСЦ МВС № 8042",
+            "latitude": 50.485384,
+            "longitude": 30.395277,
+            "region": "м. Київ",
+            "district": null,
+            "city": "м. Київ",
+            "street": "вул. Мрії",
+            "building": "19",
+            "office": null,
+            "allowOnlineCount": 1
+        }
+    ]
+}

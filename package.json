@@ -1,0 +1,15 @@
+{
+  "name": "mvs-monitor",
+  "private": true,
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "dev:all": "npm run start --workspaces --if-present",
+    "dev:parse-auth": "npm run start --workspace=@mvs-monitor/parse-auth-service",
+    "dev:parse": "npm run start --workspace=@mvs-monitor/parse-service",
+    "format:all": "npm run format --workspaces --if-present"
+  },
+  "workspaces": [
+    "./apps/*",
+    "./packages/*"
+  ]
+}
