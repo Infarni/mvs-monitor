@@ -1,8 +1,6 @@
-import { createRequire } from "node:module";
-import { readdirSync } from 'node:fs';import { join } from "node:path";
+import { readdirSync } from 'node:fs';import {join } from "node:path";
+import { fileURLToPath } from 'node:url';
 
-
-const require = createRequire(import.meta.url);
 
 export function getProtoFiles(dir: string): string[] {
   return readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
@@ -16,9 +14,8 @@ export function getProtoFiles(dir: string): string[] {
   });
 }
 
-export function getProtoPaths() {
-  return {
-    parseAuth: { v1: getProtoFiles(require.resolve("@mvs-monitor/proto/proto/parse_auth/v1/parse_auth.proto").split("/")[-1] as string)},
-    parse: { v1: getProtoFiles(require.resolve("@mvs-monitor/proto/proto/parse/v1/parse.proto").split("/")[0] as string)}
-  }
+export function getProtoPaths(): string[] {
+  const protoDirPath = fileURLToPath(import.meta.resolve("@mvs-monitor/proto/proto"));
+
+  return getProtoFiles(protoDirPath)
 }

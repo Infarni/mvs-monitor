@@ -21,14 +21,15 @@
     "typescript": "^7.0.2"
   },
   "exports": {
+    "./*": {
+      "types": "./dist/proto/*.d.ts",
+      "import": "./dist/proto/*.js"
+    },
+    "./proto": "./proto",
     "./proto/*": "./proto/*",
     "./common": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
-    },
-    "./*": {
-      "types": "./dist/proto/*.d.ts",
-      "import": "./dist/proto/*.js"
     }
   }
 }

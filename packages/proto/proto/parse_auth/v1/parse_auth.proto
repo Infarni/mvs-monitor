@@ -1,3 +1,0 @@
-syntax = "proto3";
-
-package parse_auth.v1;

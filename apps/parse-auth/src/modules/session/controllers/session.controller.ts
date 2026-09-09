@@ -4,7 +4,16 @@ import { GetSessionUseCase } from '../use-cases/get-session.use-case.js';
 import { CreateSessionUseCase } from '../use-cases/create-session.use-case.js';
 import { LockSessionUseCase } from '../use-cases/lock-session.use-case.js';
 import { RemoveSessionUseCase } from '../use-cases/remove-session.use-case.js';
-import { CreateSessionRequest, CreateSessionResponse, GetSessionRequest, GetSessionResponse, LockSessionRequest, LockSessionResponse, RemoveSessionRequest, RemoveSessionResponse } from "@mvs-monitor/proto/parse_auth/v1/session";
+import {
+  CreateSessionRequest,
+  CreateSessionResponse,
+  GetSessionRequest,
+  GetSessionResponse,
+  LockSessionRequest,
+  LockSessionResponse,
+  RemoveSessionRequest,
+  RemoveSessionResponse,
+} from '@mvs-monitor/proto/parse_auth/v1/session';
 
 @Controller()
 export class SessionController {
