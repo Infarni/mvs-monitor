@@ -13,8 +13,4 @@ export class ConfigDto implements IConfig {
   @IsString()
   @IsNotEmpty()
   REDIS_URI: string;
-
-  @IsString()
-  @IsNotEmpty()
-  DB_URI: string;
 }

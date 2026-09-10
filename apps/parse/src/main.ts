@@ -1,19 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
-import { createRequire } from 'node:module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-
-const require = createRequire(import.meta.url);
-const protoPath = require.resolve('mvs-proto/proto/parse/parse.proto');
+import { getProtoPaths } from '@mvs-monitor/proto/common';
 
 async function bootstrap() {
+  const protoPaths = getProtoPaths();
+
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.GRPC,
       options: {
-        package: 'parse',
-        protoPath,
+        package: 'parse.v1',
+        protoPath: protoPaths,
         url: `0.0.0.0:${process.env.PORT}`,
       },
     },

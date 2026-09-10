@@ -10,8 +10,8 @@ import {
 export class HealthController {
   constructor(private readonly healthCheckUseCase: HealthCheckUseCase) {}
 
-  @GrpcMethod('HealthCheckService', 'GetHealthCheck')
-  async check(request: GetHealthCheckRequest): Promise<GetHealthCheckResponse> {
-    return await this.healthCheckUseCase.execute(request);
+  @GrpcMethod('HealthService', 'GetHealthCheck')
+  async check(body: GetHealthCheckRequest): Promise<GetHealthCheckResponse> {
+    return await this.healthCheckUseCase.execute(body);
   }
 }

@@ -1,10 +1,12 @@
-import { GrpcStatus, RpcException } from '@nestjs/microservices';
+import { GrpcStatus, GrpcUnavailableException, RpcException } from '@nestjs/microservices';
 import { HealthService } from '../services/health.service.js';
 import {
   GetHealthCheckRequest,
   GetHealthCheckResponse,
 } from '@mvs-monitor/proto/parse_auth/v1/health';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class HealthCheckUseCase {
   constructor(private readonly healthService: HealthService) {}
 
@@ -12,12 +14,22 @@ export class HealthCheckUseCase {
     _params: GetHealthCheckRequest,
   ): Promise<GetHealthCheckResponse> {
     const status = await this.healthService.checkStatus();
-    const dbConnectionStatus = await this.healthService.checkDbConnection();
+    const dbConnectionStatus =
+      await this.healthService.checkDbConnectionStatus();
+    const redisConnectionStatus = await this.healthService.checkRedisConnectionStatus();
 
-    if (!status || !dbConnectionStatus) {
-      throw new RpcException({ code: GrpcStatus.UNAVAILABLE });
+    if (!status) {
+      throw new GrpcUnavailableException("Service unavailable")
     }
 
-    return { status: true };
+    if (!dbConnectionStatus) {
+      throw new GrpcUnavailableException("DB unavailable")
+    }
+
+    if (!redisConnectionStatus) {
+      throw new GrpcUnavailableException("Redis unavailable")
+    }
+
+    return { status: true, dbConnectionStatus, redisConnectionStatus };
   }
 }

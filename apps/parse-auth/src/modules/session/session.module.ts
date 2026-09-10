@@ -22,9 +22,7 @@ const IMPORTS = [
 
 const CONTROLLERS = [SessionController];
 
-const REPOSITORIES = [SessionRepository];
-
-const SERVICES = [SessionService];
+const PROCESSORS = [CreateSessionProcessor];
 
 const USE_CASES = [
   GetSessionUseCase,
@@ -33,14 +31,16 @@ const USE_CASES = [
   RemoveSessionUseCase,
 ];
 
-const PROCESSORS = [CreateSessionProcessor];
+const SERVICES = [SessionService];
+
+const REPOSITORIES = [SessionRepository];
 
 const EXPORT = [SessionService];
 
 @Module({
   imports: IMPORTS,
   controllers: CONTROLLERS,
-  providers: [...REPOSITORIES, ...SERVICES, ...USE_CASES, ...PROCESSORS],
+  providers: [...PROCESSORS, ...USE_CASES, ...SERVICES, ...REPOSITORIES],
   exports: EXPORT,
 })
 export class SessionModule {}

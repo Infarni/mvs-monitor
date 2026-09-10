@@ -6,7 +6,9 @@
     "dev:all": "npm run start --workspaces --if-present",
     "dev:parse-auth": "npm run start --workspace=@mvs-monitor/parse-auth-service",
     "dev:parse": "npm run start --workspace=@mvs-monitor/parse-service",
-    "format:all": "npm run format --workspaces --if-present"
+    "dev:backend": "npm run start --workspace=@mvs-monitor/backend",
+    "format:all": "npm run format --workspaces --if-present",
+    "rebuild:proto": "npm run build --workspace=@mvs-monitor/proto"
   },
   "workspaces": [
     "./apps/*",

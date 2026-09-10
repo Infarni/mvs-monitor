@@ -10,4 +10,6 @@ message GetHealthCheckRequest {}
 
 message GetHealthCheckResponse {
     bool status = 1;
+    bool db_connection_status = 2;
+    bool redis_connection_status = 3;
 }

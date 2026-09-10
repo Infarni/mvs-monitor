@@ -14,6 +14,8 @@ export interface GetHealthCheckRequest {
 
 export interface GetHealthCheckResponse {
   status: boolean;
+  dbConnectionStatus: boolean;
+  redisConnectionStatus: boolean;
 }
 
 function createBaseGetHealthCheckRequest(): GetHealthCheckRequest {
@@ -69,13 +71,19 @@ export const GetHealthCheckRequest: MessageFns<GetHealthCheckRequest> = {
 };
 
 function createBaseGetHealthCheckResponse(): GetHealthCheckResponse {
-  return { status: false };
+  return { status: false, dbConnectionStatus: false, redisConnectionStatus: false };
 }
 
 export const GetHealthCheckResponse: MessageFns<GetHealthCheckResponse> = {
   encode(message: GetHealthCheckResponse, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
     if (message.status !== false) {
       writer.uint32(8).bool(message.status);
+    }
+    if (message.dbConnectionStatus !== false) {
+      writer.uint32(16).bool(message.dbConnectionStatus);
+    }
+    if (message.redisConnectionStatus !== false) {
+      writer.uint32(24).bool(message.redisConnectionStatus);
     }
     return writer;
   },
@@ -101,6 +109,22 @@ export const GetHealthCheckResponse: MessageFns<GetHealthCheckResponse> = {
             message.status = reader.bool();
             continue;
           }
+          case 2: {
+            if (tag !== 16) {
+              break;
+            }
+
+            message.dbConnectionStatus = reader.bool();
+            continue;
+          }
+          case 3: {
+            if (tag !== 24) {
+              break;
+            }
+
+            message.redisConnectionStatus = reader.bool();
+            continue;
+          }
         }
         if ((tag & 7) === 4 || tag === 0) {
           break;
@@ -114,13 +138,31 @@ export const GetHealthCheckResponse: MessageFns<GetHealthCheckResponse> = {
   },
 
   fromJSON(object: any): GetHealthCheckResponse {
-    return { status: isSet(object.status) ? globalThis.Boolean(object.status) : false };
+    return {
+      status: isSet(object.status) ? globalThis.Boolean(object.status) : false,
+      dbConnectionStatus: isSet(object.dbConnectionStatus)
+        ? globalThis.Boolean(object.dbConnectionStatus)
+        : isSet(object.db_connection_status)
+        ? globalThis.Boolean(object.db_connection_status)
+        : false,
+      redisConnectionStatus: isSet(object.redisConnectionStatus)
+        ? globalThis.Boolean(object.redisConnectionStatus)
+        : isSet(object.redis_connection_status)
+        ? globalThis.Boolean(object.redis_connection_status)
+        : false,
+    };
   },
 
   toJSON(message: GetHealthCheckResponse): unknown {
     const obj: any = {};
     if (message.status !== false) {
       obj.status = message.status;
+    }
+    if (message.dbConnectionStatus !== false) {
+      obj.dbConnectionStatus = message.dbConnectionStatus;
+    }
+    if (message.redisConnectionStatus !== false) {
+      obj.redisConnectionStatus = message.redisConnectionStatus;
     }
     return obj;
   },
@@ -131,6 +173,8 @@ export const GetHealthCheckResponse: MessageFns<GetHealthCheckResponse> = {
   fromPartial<I extends Exact<DeepPartial<GetHealthCheckResponse>, I>>(object: I): GetHealthCheckResponse {
     const message = createBaseGetHealthCheckResponse();
     message.status = object.status ?? false;
+    message.dbConnectionStatus = object.dbConnectionStatus ?? false;
+    message.redisConnectionStatus = object.redisConnectionStatus ?? false;
     return message;
   },
 };

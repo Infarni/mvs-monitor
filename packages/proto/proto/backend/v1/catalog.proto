@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package backend.v1;
+
+service CatalogService {
+    rpc GetOptions(GetOptionsRequest) returns (GetOptionsResponse);
+    rpc GetRegions(GetRegionsRequest) returns (GetRegionsResponse);
+    rpc GetCities(GetCitiesRequest) returns (GetCitiesResponse);
+    rpc GetServiceCenters(GetServiceCentersRequest) returns (GetServiceCentersResponse);
+}
+
+message GetOptionsRequest {
+    optional string parent_id = 1;
+    int32 skip = 2;
+    int32 count = 3;
+}
+
+message GetOptionsResponse {
+    repeated Option options = 1;
+    int32 all_count = 2;
+}
+
+message Option {
+    string id = 1;
+    string name = 2;
+    bool has_chidrens = 3;
+}
+
+message GetRegionsRequest {
+    string option_id = 1;
+    int32 skip = 2;
+    int32 count = 3;
+}
+
+message GetRegionsResponse {
+    repeated Region regions = 1;
+    int32 all_count = 2;
+}
+
+message GetCitiesRequest {
+    string option_id = 1;
+    string region_id = 2;
+    int32 skip = 3;
+    int32 count = 4;
+}
+
+message GetCitiesResponse {
+    repeated City cities = 1;
+    int32 all_count = 2;
+}
+
+message GetServiceCentersRequest {
+    string option_id = 1;
+    string city_id = 2;
+    int32 skip = 3;
+    int32 count = 4;
+}
+
+message GetServiceCentersResponse {
+    repeated ServiceCenter service_centers = 1;
+    int32 all_count = 2;
+}
+
+message Region {
+    string id = 1;
+    string name = 2;
+}
+
+message City {
+    string id = 1;
+    string name = 2;
+}
+
+message ServiceCenter {
+    string id = 1;
+    string name = 2;
+    string street = 3;
+    string building = 4;
+}

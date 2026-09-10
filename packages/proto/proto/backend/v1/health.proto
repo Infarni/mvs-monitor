@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package backend.v1;
+
+service HealthService {
+    rpc GetHealthCheck(GetHealthCheckRequest) returns (GetHealthCheckResponse);
+}
+
+message GetHealthCheckRequest {}
+
+message GetHealthCheckResponse {
+    bool status = 1;
+    bool db_connection_status = 2;
+    bool redis_connection_status = 3;
+}

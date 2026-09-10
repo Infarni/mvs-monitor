@@ -28,10 +28,5 @@
 
   "include": [
     "src/**/*.ts"
-  ],
-  // "paths": {
-  //   "@mvs-monitor/proto/*": [
-  //     "packages/proto/src/proto/*"
-  //   ]
-  // }
+  ]
 }

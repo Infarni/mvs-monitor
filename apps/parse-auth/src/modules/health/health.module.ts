@@ -8,13 +8,13 @@ const IMPORTS = [DrizzleDynamicModule];
 
 const CONTROLLERS = [HealthController];
 
-const SERVICES = [HealthService];
-
 const USE_CASES = [HealthCheckUseCase];
+
+const SERVICES = [HealthService];
 
 @Module({
   imports: IMPORTS,
   controllers: CONTROLLERS,
-  providers: [...SERVICES, ...USE_CASES],
+  providers: [...USE_CASES, ...SERVICES],
 })
 export class HealthModule {}

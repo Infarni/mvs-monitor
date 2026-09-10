@@ -5,12 +5,12 @@ import { HealthCheckUseCase } from './use-cases/health-check.use-case.js';
 
 const CONTROLLERS = [HealthController];
 
-const SERVICES = [HealthService];
-
 const USE_CASES = [HealthCheckUseCase];
+
+const SERVICES = [HealthService];
 
 @Module({
   controllers: CONTROLLERS,
-  providers: [...SERVICES, ...USE_CASES],
+  providers: [...USE_CASES, ...SERVICES],
 })
 export class HealthModule {}

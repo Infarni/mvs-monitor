@@ -1,14 +1,17 @@
 import { Controller } from '@nestjs/common';
-import { HealthCheckResponseDto } from '../dto/health-check-response.dto.js';
 import { GrpcMethod } from '@nestjs/microservices';
 import { HealthCheckUseCase } from '../use-cases/health-check.use-case.js';
+import {
+  GetHealthCheckRequest,
+  GetHealthCheckResponse,
+} from '@mvs-monitor/proto/parse/v1/health';
 
 @Controller()
 export class HealthController {
   constructor(private readonly healthCheckUseCase: HealthCheckUseCase) {}
 
-  @GrpcMethod('HealthCheckService', 'GetHealthCheck')
-  async check(): Promise<HealthCheckResponseDto> {
-    return await this.healthCheckUseCase.execute();
+  @GrpcMethod('HealthService', 'GetHealthCheck')
+  async check(body: GetHealthCheckRequest): Promise<GetHealthCheckResponse> {
+    return await this.healthCheckUseCase.execute(body);
   }
 }
