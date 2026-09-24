@@ -6,6 +6,18 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import {
+  type CallOptions,
+  type ChannelCredentials,
+  Client,
+  type ClientOptions,
+  type ClientUnaryCall,
+  type handleUnaryCall,
+  makeGenericClientConstructor,
+  type Metadata,
+  type ServiceError,
+  type UntypedServiceImplementation,
+} from "@grpc/grpc-js";
 
 export const protobufPackage = "parse_auth.v1";
 
@@ -177,6 +189,52 @@ export const GetHealthCheckResponse: MessageFns<GetHealthCheckResponse> = {
     message.redisConnectionStatus = object.redisConnectionStatus ?? false;
     return message;
   },
+};
+
+export type HealthServiceService = typeof HealthServiceService;
+export const HealthServiceService = {
+  getHealthCheck: {
+    path: "/parse_auth.v1.HealthService/GetHealthCheck" as const,
+    requestStream: false as const,
+    responseStream: false as const,
+    requestSerialize: (value: GetHealthCheckRequest): Buffer =>
+      Buffer.from(GetHealthCheckRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): GetHealthCheckRequest => GetHealthCheckRequest.decode(value),
+    responseSerialize: (value: GetHealthCheckResponse): Buffer =>
+      Buffer.from(GetHealthCheckResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): GetHealthCheckResponse => GetHealthCheckResponse.decode(value),
+  },
+} as const;
+
+export interface HealthServiceServer extends UntypedServiceImplementation {
+  getHealthCheck: handleUnaryCall<GetHealthCheckRequest, GetHealthCheckResponse>;
+}
+
+export interface HealthServiceClient extends Client {
+  getHealthCheck(
+    request: GetHealthCheckRequest,
+    callback: (error: ServiceError | null, response: GetHealthCheckResponse) => void,
+  ): ClientUnaryCall;
+  getHealthCheck(
+    request: GetHealthCheckRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: GetHealthCheckResponse) => void,
+  ): ClientUnaryCall;
+  getHealthCheck(
+    request: GetHealthCheckRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: GetHealthCheckResponse) => void,
+  ): ClientUnaryCall;
+}
+
+export const HealthServiceClient = makeGenericClientConstructor(
+  HealthServiceService,
+  "parse_auth.v1.HealthService",
+) as unknown as {
+  new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): HealthServiceClient;
+  service: typeof HealthServiceService;
+  serviceName: string;
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

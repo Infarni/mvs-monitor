@@ -1,0 +1,4 @@
+export const SELECT_OPTION_PAGE_SIZE = 5;
+export const SELECT_REGION_PAGE_SIZE = 5;
+export const SELECT_CITY_PAGE_SIZE = 5;
+export const SELECT_SERVICE_CENTER_PAGE_SIZE = 5;

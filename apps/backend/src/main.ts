@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module.js';
-import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+import { GrpcExceptionFilter, MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { getProtoPaths } from '@mvs-monitor/proto/common';
 
 async function bootstrap() {
@@ -17,6 +17,8 @@ async function bootstrap() {
       },
     },
   );
+
+  app.useGlobalFilters(new GrpcExceptionFilter());
 
   await app.listen();
 }

@@ -6,6 +6,18 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import {
+  type CallOptions,
+  type ChannelCredentials,
+  Client,
+  type ClientOptions,
+  type ClientUnaryCall,
+  type handleUnaryCall,
+  makeGenericClientConstructor,
+  type Metadata,
+  type ServiceError,
+  type UntypedServiceImplementation,
+} from "@grpc/grpc-js";
 
 export const protobufPackage = "parse_auth.v1";
 
@@ -574,6 +586,127 @@ export const RemoveSessionResponse: MessageFns<RemoveSessionResponse> = {
     const message = createBaseRemoveSessionResponse();
     return message;
   },
+};
+
+export type SessionServiceService = typeof SessionServiceService;
+export const SessionServiceService = {
+  getSession: {
+    path: "/parse_auth.v1.SessionService/GetSession" as const,
+    requestStream: false as const,
+    responseStream: false as const,
+    requestSerialize: (value: GetSessionRequest): Buffer => Buffer.from(GetSessionRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): GetSessionRequest => GetSessionRequest.decode(value),
+    responseSerialize: (value: GetSessionResponse): Buffer => Buffer.from(GetSessionResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): GetSessionResponse => GetSessionResponse.decode(value),
+  },
+  createSession: {
+    path: "/parse_auth.v1.SessionService/CreateSession" as const,
+    requestStream: false as const,
+    responseStream: false as const,
+    requestSerialize: (value: CreateSessionRequest): Buffer => Buffer.from(CreateSessionRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): CreateSessionRequest => CreateSessionRequest.decode(value),
+    responseSerialize: (value: CreateSessionResponse): Buffer =>
+      Buffer.from(CreateSessionResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): CreateSessionResponse => CreateSessionResponse.decode(value),
+  },
+  lockSession: {
+    path: "/parse_auth.v1.SessionService/LockSession" as const,
+    requestStream: false as const,
+    responseStream: false as const,
+    requestSerialize: (value: LockSessionRequest): Buffer => Buffer.from(LockSessionRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): LockSessionRequest => LockSessionRequest.decode(value),
+    responseSerialize: (value: LockSessionResponse): Buffer => Buffer.from(LockSessionResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): LockSessionResponse => LockSessionResponse.decode(value),
+  },
+  removeSession: {
+    path: "/parse_auth.v1.SessionService/RemoveSession" as const,
+    requestStream: false as const,
+    responseStream: false as const,
+    requestSerialize: (value: RemoveSessionRequest): Buffer => Buffer.from(RemoveSessionRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): RemoveSessionRequest => RemoveSessionRequest.decode(value),
+    responseSerialize: (value: RemoveSessionResponse): Buffer =>
+      Buffer.from(RemoveSessionResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): RemoveSessionResponse => RemoveSessionResponse.decode(value),
+  },
+} as const;
+
+export interface SessionServiceServer extends UntypedServiceImplementation {
+  getSession: handleUnaryCall<GetSessionRequest, GetSessionResponse>;
+  createSession: handleUnaryCall<CreateSessionRequest, CreateSessionResponse>;
+  lockSession: handleUnaryCall<LockSessionRequest, LockSessionResponse>;
+  removeSession: handleUnaryCall<RemoveSessionRequest, RemoveSessionResponse>;
+}
+
+export interface SessionServiceClient extends Client {
+  getSession(
+    request: GetSessionRequest,
+    callback: (error: ServiceError | null, response: GetSessionResponse) => void,
+  ): ClientUnaryCall;
+  getSession(
+    request: GetSessionRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: GetSessionResponse) => void,
+  ): ClientUnaryCall;
+  getSession(
+    request: GetSessionRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: GetSessionResponse) => void,
+  ): ClientUnaryCall;
+  createSession(
+    request: CreateSessionRequest,
+    callback: (error: ServiceError | null, response: CreateSessionResponse) => void,
+  ): ClientUnaryCall;
+  createSession(
+    request: CreateSessionRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: CreateSessionResponse) => void,
+  ): ClientUnaryCall;
+  createSession(
+    request: CreateSessionRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: CreateSessionResponse) => void,
+  ): ClientUnaryCall;
+  lockSession(
+    request: LockSessionRequest,
+    callback: (error: ServiceError | null, response: LockSessionResponse) => void,
+  ): ClientUnaryCall;
+  lockSession(
+    request: LockSessionRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: LockSessionResponse) => void,
+  ): ClientUnaryCall;
+  lockSession(
+    request: LockSessionRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: LockSessionResponse) => void,
+  ): ClientUnaryCall;
+  removeSession(
+    request: RemoveSessionRequest,
+    callback: (error: ServiceError | null, response: RemoveSessionResponse) => void,
+  ): ClientUnaryCall;
+  removeSession(
+    request: RemoveSessionRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: RemoveSessionResponse) => void,
+  ): ClientUnaryCall;
+  removeSession(
+    request: RemoveSessionRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: RemoveSessionResponse) => void,
+  ): ClientUnaryCall;
+}
+
+export const SessionServiceClient = makeGenericClientConstructor(
+  SessionServiceService,
+  "parse_auth.v1.SessionService",
+) as unknown as {
+  new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): SessionServiceClient;
+  service: typeof SessionServiceService;
+  serviceName: string;
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;

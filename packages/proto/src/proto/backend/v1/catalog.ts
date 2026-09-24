@@ -6,6 +6,18 @@
 
 /* eslint-disable */
 import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import {
+  type CallOptions,
+  type ChannelCredentials,
+  Client,
+  type ClientOptions,
+  type ClientUnaryCall,
+  type handleUnaryCall,
+  makeGenericClientConstructor,
+  type Metadata,
+  type ServiceError,
+  type UntypedServiceImplementation,
+} from "@grpc/grpc-js";
 
 export const protobufPackage = "backend.v1";
 
@@ -1288,6 +1300,127 @@ export const ServiceCenter: MessageFns<ServiceCenter> = {
     message.building = object.building ?? "";
     return message;
   },
+};
+
+export type CatalogServiceService = typeof CatalogServiceService;
+export const CatalogServiceService = {
+  getOptions: {
+    path: "/backend.v1.CatalogService/GetOptions" as const,
+    requestStream: false as const,
+    responseStream: false as const,
+    requestSerialize: (value: GetOptionsRequest): Buffer => Buffer.from(GetOptionsRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): GetOptionsRequest => GetOptionsRequest.decode(value),
+    responseSerialize: (value: GetOptionsResponse): Buffer => Buffer.from(GetOptionsResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): GetOptionsResponse => GetOptionsResponse.decode(value),
+  },
+  getRegions: {
+    path: "/backend.v1.CatalogService/GetRegions" as const,
+    requestStream: false as const,
+    responseStream: false as const,
+    requestSerialize: (value: GetRegionsRequest): Buffer => Buffer.from(GetRegionsRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): GetRegionsRequest => GetRegionsRequest.decode(value),
+    responseSerialize: (value: GetRegionsResponse): Buffer => Buffer.from(GetRegionsResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): GetRegionsResponse => GetRegionsResponse.decode(value),
+  },
+  getCities: {
+    path: "/backend.v1.CatalogService/GetCities" as const,
+    requestStream: false as const,
+    responseStream: false as const,
+    requestSerialize: (value: GetCitiesRequest): Buffer => Buffer.from(GetCitiesRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): GetCitiesRequest => GetCitiesRequest.decode(value),
+    responseSerialize: (value: GetCitiesResponse): Buffer => Buffer.from(GetCitiesResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): GetCitiesResponse => GetCitiesResponse.decode(value),
+  },
+  getServiceCenters: {
+    path: "/backend.v1.CatalogService/GetServiceCenters" as const,
+    requestStream: false as const,
+    responseStream: false as const,
+    requestSerialize: (value: GetServiceCentersRequest): Buffer =>
+      Buffer.from(GetServiceCentersRequest.encode(value).finish()),
+    requestDeserialize: (value: Buffer): GetServiceCentersRequest => GetServiceCentersRequest.decode(value),
+    responseSerialize: (value: GetServiceCentersResponse): Buffer =>
+      Buffer.from(GetServiceCentersResponse.encode(value).finish()),
+    responseDeserialize: (value: Buffer): GetServiceCentersResponse => GetServiceCentersResponse.decode(value),
+  },
+} as const;
+
+export interface CatalogServiceServer extends UntypedServiceImplementation {
+  getOptions: handleUnaryCall<GetOptionsRequest, GetOptionsResponse>;
+  getRegions: handleUnaryCall<GetRegionsRequest, GetRegionsResponse>;
+  getCities: handleUnaryCall<GetCitiesRequest, GetCitiesResponse>;
+  getServiceCenters: handleUnaryCall<GetServiceCentersRequest, GetServiceCentersResponse>;
+}
+
+export interface CatalogServiceClient extends Client {
+  getOptions(
+    request: GetOptionsRequest,
+    callback: (error: ServiceError | null, response: GetOptionsResponse) => void,
+  ): ClientUnaryCall;
+  getOptions(
+    request: GetOptionsRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: GetOptionsResponse) => void,
+  ): ClientUnaryCall;
+  getOptions(
+    request: GetOptionsRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: GetOptionsResponse) => void,
+  ): ClientUnaryCall;
+  getRegions(
+    request: GetRegionsRequest,
+    callback: (error: ServiceError | null, response: GetRegionsResponse) => void,
+  ): ClientUnaryCall;
+  getRegions(
+    request: GetRegionsRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: GetRegionsResponse) => void,
+  ): ClientUnaryCall;
+  getRegions(
+    request: GetRegionsRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: GetRegionsResponse) => void,
+  ): ClientUnaryCall;
+  getCities(
+    request: GetCitiesRequest,
+    callback: (error: ServiceError | null, response: GetCitiesResponse) => void,
+  ): ClientUnaryCall;
+  getCities(
+    request: GetCitiesRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: GetCitiesResponse) => void,
+  ): ClientUnaryCall;
+  getCities(
+    request: GetCitiesRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: GetCitiesResponse) => void,
+  ): ClientUnaryCall;
+  getServiceCenters(
+    request: GetServiceCentersRequest,
+    callback: (error: ServiceError | null, response: GetServiceCentersResponse) => void,
+  ): ClientUnaryCall;
+  getServiceCenters(
+    request: GetServiceCentersRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: GetServiceCentersResponse) => void,
+  ): ClientUnaryCall;
+  getServiceCenters(
+    request: GetServiceCentersRequest,
+    metadata: Metadata,
+    options: Partial<CallOptions>,
+    callback: (error: ServiceError | null, response: GetServiceCentersResponse) => void,
+  ): ClientUnaryCall;
+}
+
+export const CatalogServiceClient = makeGenericClientConstructor(
+  CatalogServiceService,
+  "backend.v1.CatalogService",
+) as unknown as {
+  new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): CatalogServiceClient;
+  service: typeof CatalogServiceService;
+  serviceName: string;
 };
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
