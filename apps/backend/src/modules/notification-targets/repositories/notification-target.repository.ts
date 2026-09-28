@@ -16,8 +16,23 @@ export class NotificationTargetRepository {
     return notificationTargets
   }
 
-  async findByTgUserId(tgUserId: string): Promise<SelectNotificationTargetSchema[]> {
-    const notificationTargets = await this.drizzleService.db.select().from(notificationTargetsTable).where(and(eq(notificationTargetsTable.tgUserId, tgUserId), eq(notificationTargetsTable.type, ENotificationTargetType.E_NOTIFICATION_TARGET_TYPE_TELEGRAM)));
+  async deleteById(notificationTargetId: string): Promise<void> {
+    await this.drizzleService.db.delete(notificationTargetsTable).where(eq(notificationTargetsTable.id, notificationTargetId))
+  }
+
+  async findByTgUserIdAndOptionId(tgUserId: string, optionId?: string): Promise<SelectNotificationTargetSchema[]> {
+    const filters = [
+      eq(notificationTargetsTable.tgUserId, tgUserId),
+      eq(notificationTargetsTable.type, ENotificationTargetType.E_NOTIFICATION_TARGET_TYPE_TELEGRAM)
+    ]
+
+    if (optionId) {
+      filters.push(
+        eq(notificationTargetsTable.optionId, optionId)
+      )
+    }
+
+    const notificationTargets = await this.drizzleService.db.select().from(notificationTargetsTable).where(and(...filters));
 
     return notificationTargets;
   }

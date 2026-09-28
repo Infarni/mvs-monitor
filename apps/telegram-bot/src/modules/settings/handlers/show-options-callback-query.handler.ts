@@ -24,15 +24,10 @@ export function registerShowOptionsCallbackQueryHandler(bot: Bot): void {
 
     const { groupId, data } = unpackedData;
 
-    catalogClient.getOptions({ count: SELECT_OPTION_PAGE_SIZE, skip: (data.page - 1) * SELECT_OPTION_PAGE_SIZE, parentId: data.parentId }, async (err: ServiceError | null, response: GetOptionsResponse) => {
-      if (err) {
-        await handleException(new UnknownException(), ctx);
-        return;
-      }
+    const getOptionsResponse = await catalogClient.getOptions({ count: SELECT_OPTION_PAGE_SIZE, skip: (data.page - 1) * SELECT_OPTION_PAGE_SIZE, parentId: data.parentId });
 
-      await ctx.editMessageText(SHOW_OPTIONS_RESPONSE_TEXT);
-      await ctx.editMessageReplyMarkup({reply_markup: await getSelectOptionKeyboard(response.options, data.page, response.allCount, data.parentId, data.previousParentId)})
-    })
+    await ctx.editMessageText(SHOW_OPTIONS_RESPONSE_TEXT);
+    await ctx.editMessageReplyMarkup({reply_markup: await getSelectOptionKeyboard(getOptionsResponse.options, data.page, getOptionsResponse.allCount, data.parentId, data.previousParentId)})
 
     await callbackQueryService.delGroup(groupId)
     await ctx.answerCallbackQuery();

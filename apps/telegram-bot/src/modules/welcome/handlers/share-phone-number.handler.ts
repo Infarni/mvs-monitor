@@ -1,7 +1,6 @@
 import { Bot, Context } from "grammy";
 import { tgUserClient } from "../../../common/clients/tg-user.client.js";
 import { ServiceError, status } from "@grpc/grpc-js";
-import { CreateTgUserResponse } from "@mvs-monitor/proto/backend/v1/tg_user";
 import { TgUserAlreadyExistsException } from "../exceptions/tg-user-already-exists.exception.js";
 import { SHARE_PHONE_NUMBER_RESPONSE_TEXT } from "../constants/texts.constant.js";
 import { UnknownException } from "../../../common/exceptions/unknown.exception.js";
@@ -13,21 +12,21 @@ export function registerSharePhoneNumberHandler(bot: Bot): void {
       return;
     }
 
-    tgUserClient.createTgUser({ telegramId: ctx.from.id, phoneNumber: ctx.message?.contact?.phone_number }, async (err: ServiceError | null, response: CreateTgUserResponse) => {
-      if (err) {
-        switch (err.code) {
-          case status.ALREADY_EXISTS:
-            await handleException(new TgUserAlreadyExistsException(), ctx);
-            break;
+    try {
+      await tgUserClient.createTgUser({ telegramId: ctx.from.id, phoneNumber: ctx.message?.contact?.phone_number });
+    } catch (err) {
+      const code = (err as ServiceError)?.code;
 
-          default:
-            await handleException(new UnknownException(), ctx);
-        }
+      switch (code) {
+        case status.ALREADY_EXISTS:
+          await handleException(new TgUserAlreadyExistsException(), ctx);
+          break;
 
-        return;
+        default:
+          await handleException(new UnknownException(), ctx);
       }
+    }
 
-      await ctx.reply(SHARE_PHONE_NUMBER_RESPONSE_TEXT);
-    })
+    await ctx.reply(SHARE_PHONE_NUMBER_RESPONSE_TEXT);
   })
 }

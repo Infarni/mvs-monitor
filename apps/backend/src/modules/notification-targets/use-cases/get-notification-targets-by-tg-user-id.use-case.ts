@@ -9,7 +9,7 @@ export class GetNotificationTargetsByTgUserIdUseCase {
   ) { }
 
   async execute(params: GetNotificationTargetsByTgUserIdRequest): Promise<GetNotificationTargetsByTgUserIdResponse> {
-    const notificationTargets = await this.notificationTargetService.getByTgUserId(params.tgUserId);
+    const notificationTargets = await this.notificationTargetService.getByTgUserId(params.tgUserId, params.optionId);
 
     return {
       notificationTargets: notificationTargets.map(item => ({

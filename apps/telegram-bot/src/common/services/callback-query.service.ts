@@ -20,9 +20,9 @@ export class CallbackQueryService {
 
     await redisClient.expire(groupKey, this.ttl, "XX")
 
-    const cacheId = `${groupId}:${dataId}`
+    const dataCacheId = `${groupId}:${dataId}`
 
-    return cacheId;
+    return dataCacheId;
   }
 
   async getData(cacheId: string): Promise<string | null> {

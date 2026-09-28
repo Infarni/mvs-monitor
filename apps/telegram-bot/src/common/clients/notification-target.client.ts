@@ -1,5 +1,6 @@
-import { NotificationTargetServiceClient } from "@mvs-monitor/proto/backend/v1/notification_target";
-import { config } from "../../config/config.js";
-import { credentials } from "@grpc/grpc-js";
+import { NotificationTargetServiceDefinition } from "@mvs-monitor/proto/backend/v1/notification_target";
+import { createClient } from "nice-grpc";
+import { backendChannel } from "../channels/backend.channel.js";
 
-export const notificationTargetClient = new NotificationTargetServiceClient(config.BACKEND_GRPC_CONNECTION_STRING, credentials.createInsecure());
+
+export const notificationTargetClient = createClient(NotificationTargetServiceDefinition, backendChannel)

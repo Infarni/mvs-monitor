@@ -1,10 +1,6 @@
 
-import { ChannelCredentials, credentials } from "@grpc/grpc-js";
-import { GrpcTransport } from "@protobuf-ts/grpc-transport";
-import { config } from "../../config/config.js";
-import { TgUserServiceClient } from "@mvs-monitor/proto/backend/v1/tg_user.client";
+import { createClient } from "nice-grpc";
+import { TgUserServiceDefinition } from "@mvs-monitor/proto/backend/v1/tg_user";
+import { backendChannel } from "../channels/backend.channel.js";
 
-const transport = new GrpcTransport({host: config.BACKEND_GRPC_CONNECTION_STRING, channelCredentials: ChannelCredentials.createInsecure()});
-
-
-export const tgUserClient = new TgUserServiceClient(transport);
+export const tgUserClient = createClient(TgUserServiceDefinition, backendChannel)

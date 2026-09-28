@@ -1,4 +1,4 @@
-import { GrpcStatus, GrpcUnavailableException, RpcException } from '@nestjs/microservices';
+import { GrpcUnavailableException } from '@nestjs/microservices';
 import { HealthService } from '../services/health.service.js';
 import {
   GetHealthCheckRequest,

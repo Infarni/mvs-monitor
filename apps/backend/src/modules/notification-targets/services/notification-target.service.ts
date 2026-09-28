@@ -43,8 +43,12 @@ export class NotificationTargetService {
     }
   }
 
-  async getByTgUserId(tgUserId: string): Promise<INotificationTarget[]> {
-    const notificationTargets = await this.notificationTargetRepo.findByTgUserId(tgUserId);
+  async deleteById(notificationTargetId: string): Promise<void> {
+    await this.notificationTargetRepo.deleteById(notificationTargetId)
+  }
+
+  async getByTgUserId(tgUserId: string, optionId?: string): Promise<INotificationTarget[]> {
+    const notificationTargets = await this.notificationTargetRepo.findByTgUserIdAndOptionId(tgUserId, optionId);
 
     return notificationTargets.map(item => ({
       id: item.id,

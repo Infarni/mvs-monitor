@@ -1,9 +1,9 @@
 {
   "version": "8",
   "dialect": "postgres",
-  "id": "556d9e47-7673-4a8d-bca5-540b8c99bff8",
+  "id": "d82c2736-92a3-45ad-b53b-b0e22c1698d3",
   "prevIds": [
-    "80d92cbe-ecc6-401b-94ba-4e436ee7329c"
+    "00000000-0000-0000-0000-000000000000"
   ],
   "ddl": [
     {
@@ -11,16 +11,14 @@
       "entityType": "schemas"
     },
     {
-      "values": [
-        "telegram"
-      ],
-      "name": "sc_notification_target_type",
-      "entityType": "enums",
+      "isRlsEnabled": false,
+      "name": "cities",
+      "entityType": "tables",
       "schema": "backend"
     },
     {
       "isRlsEnabled": false,
-      "name": "cities",
+      "name": "notification_targets",
       "entityType": "tables",
       "schema": "backend"
     },
@@ -33,12 +31,6 @@
     {
       "isRlsEnabled": false,
       "name": "regions",
-      "entityType": "tables",
-      "schema": "backend"
-    },
-    {
-      "isRlsEnabled": false,
-      "name": "sc_notification_targets",
       "entityType": "tables",
       "schema": "backend"
     },
@@ -111,6 +103,71 @@
       "entityType": "columns",
       "schema": "backend",
       "table": "cities"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "notification_targets"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "service_center_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "notification_targets"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "option_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "notification_targets"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "tg_user_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "notification_targets"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "1",
+      "generated": null,
+      "identity": null,
+      "name": "notification_target_type",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "notification_targets"
     },
     {
       "type": "uuid",
@@ -215,71 +272,6 @@
       "entityType": "columns",
       "schema": "backend",
       "table": "regions"
-    },
-    {
-      "type": "uuid",
-      "typeSchema": null,
-      "notNull": true,
-      "dimensions": 0,
-      "default": "uuidv7()",
-      "generated": null,
-      "identity": null,
-      "name": "id",
-      "entityType": "columns",
-      "schema": "backend",
-      "table": "sc_notification_targets"
-    },
-    {
-      "type": "uuid",
-      "typeSchema": null,
-      "notNull": true,
-      "dimensions": 0,
-      "default": null,
-      "generated": null,
-      "identity": null,
-      "name": "service_center_id",
-      "entityType": "columns",
-      "schema": "backend",
-      "table": "sc_notification_targets"
-    },
-    {
-      "type": "uuid",
-      "typeSchema": null,
-      "notNull": true,
-      "dimensions": 0,
-      "default": null,
-      "generated": null,
-      "identity": null,
-      "name": "option_id",
-      "entityType": "columns",
-      "schema": "backend",
-      "table": "sc_notification_targets"
-    },
-    {
-      "type": "uuid",
-      "typeSchema": null,
-      "notNull": true,
-      "dimensions": 0,
-      "default": null,
-      "generated": null,
-      "identity": null,
-      "name": "tg_user_id",
-      "entityType": "columns",
-      "schema": "backend",
-      "table": "sc_notification_targets"
-    },
-    {
-      "type": "sc_notification_target_type",
-      "typeSchema": "backend",
-      "notNull": true,
-      "dimensions": 0,
-      "default": null,
-      "generated": null,
-      "identity": null,
-      "name": "type",
-      "entityType": "columns",
-      "schema": "backend",
-      "table": "sc_notification_targets"
     },
     {
       "type": "uuid",
@@ -477,6 +469,76 @@
       "table": "tg_users"
     },
     {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "service_center_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "option_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "tg_user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "notification_target_type",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": true,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "service_center_id_option_id_tg_user_id_type",
+      "entityType": "indexes",
+      "schema": "backend",
+      "table": "notification_targets"
+    },
+    {
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "service_center_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "option_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": true,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "name": "service_center_id_option_id",
+      "entityType": "indexes",
+      "schema": "backend",
+      "table": "service_center_options"
+    },
+    {
       "nameExplicit": false,
       "columns": [
         "region_id"
@@ -496,23 +558,6 @@
     {
       "nameExplicit": false,
       "columns": [
-        "parent_id"
-      ],
-      "schemaTo": "backend",
-      "tableTo": "options",
-      "columnsTo": [
-        "id"
-      ],
-      "onUpdate": "NO ACTION",
-      "onDelete": "NO ACTION",
-      "name": "options_parent_id_options_id_fkey",
-      "entityType": "fks",
-      "schema": "backend",
-      "table": "options"
-    },
-    {
-      "nameExplicit": false,
-      "columns": [
         "service_center_id"
       ],
       "schemaTo": "backend",
@@ -522,10 +567,10 @@
       ],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
-      "name": "sc_notification_targets_TRdoI9RkgWgO_fkey",
+      "name": "notification_targets_service_center_id_service_centers_id_fkey",
       "entityType": "fks",
       "schema": "backend",
-      "table": "sc_notification_targets"
+      "table": "notification_targets"
     },
     {
       "nameExplicit": false,
@@ -539,10 +584,10 @@
       ],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
-      "name": "sc_notification_targets_option_id_options_id_fkey",
+      "name": "notification_targets_option_id_options_id_fkey",
       "entityType": "fks",
       "schema": "backend",
-      "table": "sc_notification_targets"
+      "table": "notification_targets"
     },
     {
       "nameExplicit": false,
@@ -556,10 +601,27 @@
       ],
       "onUpdate": "NO ACTION",
       "onDelete": "NO ACTION",
-      "name": "sc_notification_targets_tg_user_id_tg_users_id_fkey",
+      "name": "notification_targets_tg_user_id_tg_users_id_fkey",
       "entityType": "fks",
       "schema": "backend",
-      "table": "sc_notification_targets"
+      "table": "notification_targets"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "parent_id"
+      ],
+      "schemaTo": "backend",
+      "tableTo": "options",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "options_parent_id_options_id_fkey",
+      "entityType": "fks",
+      "schema": "backend",
+      "table": "options"
     },
     {
       "nameExplicit": false,
@@ -627,6 +689,16 @@
         "id"
       ],
       "nameExplicit": false,
+      "name": "notification_targets_pkey",
+      "schema": "backend",
+      "table": "notification_targets",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
       "name": "options_pkey",
       "schema": "backend",
       "table": "options",
@@ -640,16 +712,6 @@
       "name": "regions_pkey",
       "schema": "backend",
       "table": "regions",
-      "entityType": "pks"
-    },
-    {
-      "columns": [
-        "id"
-      ],
-      "nameExplicit": false,
-      "name": "sc_notification_targets_pkey",
-      "schema": "backend",
-      "table": "sc_notification_targets",
       "entityType": "pks"
     },
     {

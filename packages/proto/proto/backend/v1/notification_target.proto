@@ -9,6 +9,7 @@ enum ENotificationTargetType {
 
 service NotificationTargetService {
     rpc CreateNotificationTarget(CreateNotificationTargetRequest) returns (CreateNotificationTargetResponse);
+    rpc DeleteNotificationTarget(DeleteNotificationTargetRequest) returns (DeleteNotificationTargetResponse);
     rpc GetNotificationTargetsByTgUserId(GetNotificationTargetsByTgUserIdRequest) returns (GetNotificationTargetsByTgUserIdResponse);
 }
 
@@ -21,8 +22,15 @@ message CreateNotificationTargetRequest {
 
 message CreateNotificationTargetResponse {}
 
+message DeleteNotificationTargetRequest {
+    string notification_target_id = 1;
+}
+
+message DeleteNotificationTargetResponse {}
+
 message GetNotificationTargetsByTgUserIdRequest {
     string tg_user_id = 1;
+    optional string option_id = 2;
 }
 
 message GetNotificationTargetsByTgUserIdResponse {

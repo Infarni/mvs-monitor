@@ -8,10 +8,10 @@ import { ENotificationTargetType } from "@mvs-monitor/proto/backend/v1/notificat
 
 export const notificationTargetType = integer('notification_target_type')
   .$type<ENotificationTargetType>()
-  .notNull();
+  .notNull().default(ENotificationTargetType.E_NOTIFICATION_TARGET_TYPE_TELEGRAM);
 
 export const notificationTargetsTable = mainDbSchema.table(
-  "sc_notification_targets",
+  "notification_targets",
   {
     id: uuid("id").notNull().primaryKey().default(sql`uuidv7()`),
     serviceCenterId: uuid("service_center_id").notNull().references(() => serviceCentersTable.id),

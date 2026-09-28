@@ -1,6 +1,8 @@
-import { CatalogServiceClient } from "@mvs-monitor/proto/backend/v1/catalog";
+
+import { createClient } from "nice-grpc";
 import { config } from "../../config/config.js";
-import { credentials } from "@grpc/grpc-js";
+import { CatalogServiceDefinition } from "@mvs-monitor/proto/backend/v1/catalog";
+import { backendChannel } from "../channels/backend.channel.js";
 
 
-export const catalogClient = new CatalogServiceClient(config.BACKEND_GRPC_CONNECTION_STRING, credentials.createInsecure());
+export const catalogClient = createClient(CatalogServiceDefinition, backendChannel)

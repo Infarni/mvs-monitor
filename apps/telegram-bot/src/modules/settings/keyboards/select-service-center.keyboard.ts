@@ -6,20 +6,29 @@ import { SELECT_SERVICE_CENTER_PAGE_SIZE } from "../constants/pagination.constan
 import { BACK_BUTTON_TEXT, NEXT_PAGE_BUTTON_TEXT, PREVIOUS_PAGE_BUTTON_TEXT } from "../../../common/constants/texts.constant.js";
 import { packShowServiceCentersCallbackQuery } from "../callback-queries/show-service-centers.callback-query.js";
 import { packShowCitiesCallbackQuery } from "../callback-queries/show-cities.callback-query.js";
+import { packUnselectServiceCenterCallbackQuery } from "../callback-queries/unselect-service-center.callback-query.js";
+import { FINISH_CONFIGURE_NOTIFICATION_TARGETS_BUTTON_TEXT } from "../constants/texts.constant.js";
+import { packFinishConfigureNotificationTargetsCallbackQuery } from "../callback-queries/finish-configure-notification-targets.callback-query.js";
 
-export async function getSelectServiceCenterKeyboard(serviceCenters: ServiceCenter[], cityId: string, regionId: string, optionId: string, page: number, allCount: number, alreadySelected: string[] = []): Promise<InlineKeyboardMarkup> {
+export type AlreadySelectedTarget = {
+  notificationTargetId: string;
+  serviceCenterId: string;
+}
+
+export async function getSelectServiceCenterKeyboard(serviceCenters: ServiceCenter[], cityId: string, regionId: string, optionId: string, page: number, allCount: number, alreadySelectedTargets: AlreadySelectedTarget[] = []): Promise<InlineKeyboardMarkup> {
   const buttonsGroupId = callbackQueryService.genGroupId();
 
   let buttons: InlineKeyboardButton[][] = [];
 
   const serviceCenterButtons: InlineKeyboardButton[][] = [];
   for (const serviceCenter of serviceCenters) {
-    if (alreadySelected.includes(serviceCenter.id)) {
+    const alreadySelectedTargetIndex = alreadySelectedTargets.findIndex(item => item.serviceCenterId === serviceCenter.id)
+    if (alreadySelectedTargetIndex >= 0) {
       serviceCenterButtons.push(
         [
           {
             text: `✅ ${serviceCenter.name} - вул. ${serviceCenter.street}, буд. ${serviceCenter.building}`,
-            callback_data: await packSelectServiceCenterCallbackQuery({groupId: buttonsGroupId, data: {serviceCenterId: serviceCenter.id, optionId}})
+            callback_data: await packUnselectServiceCenterCallbackQuery({groupId: buttonsGroupId, data: {notificationTargetId: alreadySelectedTargets[alreadySelectedTargetIndex].notificationTargetId, cityId, regionId, optionId, page}})
           }
         ]
       )
@@ -28,7 +37,7 @@ export async function getSelectServiceCenterKeyboard(serviceCenters: ServiceCent
         [
           {
             text: `${serviceCenter.name} - вул. ${serviceCenter.street}, буд. ${serviceCenter.building}`,
-            callback_data: await packSelectServiceCenterCallbackQuery({groupId: buttonsGroupId, data: {serviceCenterId: serviceCenter.id, optionId}})
+            callback_data: await packSelectServiceCenterCallbackQuery({groupId: buttonsGroupId, data: {serviceCenterId: serviceCenter.id, cityId, regionId, optionId, page}})
           }
         ]
       )
@@ -65,6 +74,11 @@ export async function getSelectServiceCenterKeyboard(serviceCenters: ServiceCent
   buttons.push([{
     text: BACK_BUTTON_TEXT,
     callback_data: await packShowCitiesCallbackQuery({groupId: buttonsGroupId, data: {page: 1, regionId, optionId}})
+  }])
+
+  buttons.push([{
+    text: FINISH_CONFIGURE_NOTIFICATION_TARGETS_BUTTON_TEXT,
+    callback_data: packFinishConfigureNotificationTargetsCallbackQuery(),
   }])
 
   return { inline_keyboard: buttons };

@@ -4,7 +4,11 @@ plugins:
   - local: protoc-gen-ts_proto
     out: src/proto
     opt:
-      - outputServices=grpc-js
+      - outputServices=nice-grpc
+      - outputServices=generic-definitions
+      - useExactTypes=false
       - esModuleInterop=true
       - forceLong=number
-      - useOptionals=messages
+      # - useOptionals=messages
+      - env=node
+      - importSuffix=.js

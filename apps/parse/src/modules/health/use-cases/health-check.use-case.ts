@@ -1,10 +1,7 @@
 import { GrpcUnavailableException } from '@nestjs/microservices';
 import { HealthService } from '../services/health.service.js';
-import {
-  GetHealthCheckRequest,
-  GetHealthCheckResponse,
-} from '@mvs-monitor/proto/parse/v1/health';
 import { Injectable } from '@nestjs/common';
+import { GetHealthCheckRequest, GetHealthCheckResponse } from '@mvs-monitor/proto/parse/v1/health';
 
 @Injectable()
 export class HealthCheckUseCase {
@@ -25,6 +22,6 @@ export class HealthCheckUseCase {
       throw new GrpcUnavailableException("Redis unavailable")
     }
 
-    return { status, redisConnectionStatus };
+    return {status, redisConnectionStatus}
   }
 }

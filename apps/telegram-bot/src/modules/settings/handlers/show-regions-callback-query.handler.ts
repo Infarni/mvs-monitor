@@ -24,18 +24,13 @@ export function registerShowRegionsCallbackQueryHandler(bot: Bot): void {
 
     const { groupId, data } = unpackedData;
 
-    catalogClient.getRegions({ count: SELECT_REGION_PAGE_SIZE, skip: (data.page - 1) * SELECT_REGION_PAGE_SIZE, optionId: data.optionId }, async (err: ServiceError | null, response: GetRegionsResponse) => {
-      if (err) {
-        await handleException(new UnknownException(), ctx);
-        return;
-      }
+    const getRegionsResponse = await catalogClient.getRegions({ count: SELECT_REGION_PAGE_SIZE, skip: (data.page - 1) * SELECT_REGION_PAGE_SIZE, optionId: data.optionId });
 
-      if (ctx.message?.text !== SHOW_REGIONS_RESPONSE_TEXT) {
-        await ctx.editMessageText(SHOW_REGIONS_RESPONSE_TEXT)
-      }
+    if (ctx.message?.text !== SHOW_REGIONS_RESPONSE_TEXT) {
+      await ctx.editMessageText(SHOW_REGIONS_RESPONSE_TEXT)
+    }
 
-      await ctx.editMessageReplyMarkup({reply_markup: await getSelectRegionKeyboard(response.regions, data.optionId, data.page, response.allCount)})
-    })
+    await ctx.editMessageReplyMarkup({reply_markup: await getSelectRegionKeyboard(getRegionsResponse.regions, data.optionId, data.page, getRegionsResponse.allCount)})
 
     await callbackQueryService.delGroup(groupId);
     await ctx.answerCallbackQuery();

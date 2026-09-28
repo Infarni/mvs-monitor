@@ -5,12 +5,13 @@ import { CreateNotificationTargetUseCase } from "./use-cases/create-notification
 import { GetNotificationTargetsByTgUserIdUseCase } from "./use-cases/get-notification-targets-by-tg-user-id.use-case.js";
 import { NotificationTargetService } from "./services/notification-target.service.js";
 import { NotificationTargetRepository } from "./repositories/notification-target.repository.js";
+import { DeleteNotificationTargetUseCase } from "./use-cases/delete-notification-target-by-id.use-case.js";
 
 const IMPORTS = [DrizzleDynamicModule];
 
 const CONTROLLERS = [NotificationTargetController];
 
-const USE_CASES = [CreateNotificationTargetUseCase, GetNotificationTargetsByTgUserIdUseCase];
+const USE_CASES = [CreateNotificationTargetUseCase, DeleteNotificationTargetUseCase, GetNotificationTargetsByTgUserIdUseCase];
 
 const SERVICES = [NotificationTargetService];
 

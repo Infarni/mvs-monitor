@@ -15,6 +15,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "devDependencies": {
+    "@bufbuild/buf": "^1.73.0",
     "@types/node": "^26.4.1",
     "ts-proto": "^2.12.1",
     "tsx": "^4.23.13",
@@ -31,5 +32,9 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     }
+  },
+  "dependencies": {
+    "nice-grpc": "^2.1.17",
+    "nice-grpc-common": "^2.0.4"
   }
 }
