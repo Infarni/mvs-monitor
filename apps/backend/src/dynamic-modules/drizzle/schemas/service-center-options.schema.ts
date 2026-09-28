@@ -1,4 +1,4 @@
-import { uuid } from 'drizzle-orm/pg-core';
+import { uniqueIndex, uuid } from 'drizzle-orm/pg-core';
 import { mainDbSchema } from './main-db.schema.js';
 import { sql } from 'drizzle-orm';
 import { serviceCentersTable } from './service-centers.schema.js';
@@ -17,6 +17,9 @@ export const serviceCentersOptionsTable = mainDbSchema.table(
       .notNull()
       .references(() => optionsTable.id),
   },
+  (table) => [
+    uniqueIndex("service_center_id_option_id").on(table.serviceCenterId, table.optionId)
+  ]
 );
 
 export type SelectServiceCenterOptionSchema =

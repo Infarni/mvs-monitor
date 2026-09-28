@@ -1,5 +1,5 @@
 import { CatalogServiceClient } from "@mvs-monitor/proto/backend/v1/catalog";
-import { config } from "../../../config/config.js";
+import { config } from "../../config/config.js";
 import { credentials } from "@grpc/grpc-js";
 
 

@@ -7,21 +7,32 @@ import { BACK_BUTTON_TEXT, NEXT_PAGE_BUTTON_TEXT, PREVIOUS_PAGE_BUTTON_TEXT } fr
 import { packShowServiceCentersCallbackQuery } from "../callback-queries/show-service-centers.callback-query.js";
 import { packShowCitiesCallbackQuery } from "../callback-queries/show-cities.callback-query.js";
 
-export async function getSelectServiceCenterKeyboard(serviceCenters: ServiceCenter[], cityId: string, regionId: string, optionId: string, page: number, allCount: number): Promise<InlineKeyboardMarkup> {
+export async function getSelectServiceCenterKeyboard(serviceCenters: ServiceCenter[], cityId: string, regionId: string, optionId: string, page: number, allCount: number, alreadySelected: string[] = []): Promise<InlineKeyboardMarkup> {
   const buttonsGroupId = callbackQueryService.genGroupId();
 
   let buttons: InlineKeyboardButton[][] = [];
 
   const serviceCenterButtons: InlineKeyboardButton[][] = [];
   for (const serviceCenter of serviceCenters) {
-    serviceCenterButtons.push(
-      [
-        {
-          text: `${serviceCenter.name} - вул. ${serviceCenter.street}, буд. ${serviceCenter.building}`,
-          callback_data: await packSelectServiceCenterCallbackQuery({groupId: buttonsGroupId, data: {serviceCenterId: serviceCenter.id}})
-        }
-      ]
-    )
+    if (alreadySelected.includes(serviceCenter.id)) {
+      serviceCenterButtons.push(
+        [
+          {
+            text: `✅ ${serviceCenter.name} - вул. ${serviceCenter.street}, буд. ${serviceCenter.building}`,
+            callback_data: await packSelectServiceCenterCallbackQuery({groupId: buttonsGroupId, data: {serviceCenterId: serviceCenter.id, optionId}})
+          }
+        ]
+      )
+    } else {
+      serviceCenterButtons.push(
+        [
+          {
+            text: `${serviceCenter.name} - вул. ${serviceCenter.street}, буд. ${serviceCenter.building}`,
+            callback_data: await packSelectServiceCenterCallbackQuery({groupId: buttonsGroupId, data: {serviceCenterId: serviceCenter.id, optionId}})
+          }
+        ]
+      )
+    }
   }
 
   buttons = buttons.concat(serviceCenterButtons);

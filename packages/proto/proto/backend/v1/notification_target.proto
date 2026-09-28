@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package backend.v1;
+
+enum ENotificationTargetType {
+    E_NOTIFICATION_TARGET_TYPE_UNSPECIFIED = 0;
+    E_NOTIFICATION_TARGET_TYPE_TELEGRAM = 1;
+}
+
+service NotificationTargetService {
+    rpc CreateNotificationTarget(CreateNotificationTargetRequest) returns (CreateNotificationTargetResponse);
+    rpc GetNotificationTargetsByTgUserId(GetNotificationTargetsByTgUserIdRequest) returns (GetNotificationTargetsByTgUserIdResponse);
+}
+
+message CreateNotificationTargetRequest {
+    string service_center_id = 1;
+    string option_id = 2;
+    optional string tg_user_id = 3;
+    ENotificationTargetType type = 4;
+}
+
+message CreateNotificationTargetResponse {}
+
+message GetNotificationTargetsByTgUserIdRequest {
+    string tg_user_id = 1;
+}
+
+message GetNotificationTargetsByTgUserIdResponse {
+    repeated NotificationTarget notification_targets = 1;
+}
+
+message NotificationTarget {
+    string id = 1;
+    string service_center_id = 2;
+    string option_id = 3;
+    optional string tg_user_id = 4;
+    ENotificationTargetType type = 5;
+}

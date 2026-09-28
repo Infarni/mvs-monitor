@@ -9,7 +9,9 @@
     "dev:backend": "npm run start --workspace=@mvs-monitor/backend",
     "dev:telegram-bot": "npm run dev --workspace=@mvs-monitor/telegram-bot-service",
     "format:all": "npm run format --workspaces --if-present",
-    "rebuild:proto": "npm run build --workspace=@mvs-monitor/proto"
+    "rebuild:proto": "npm run build --workspace=@mvs-monitor/proto",
+    "migrations:generate": "npm run migrations:generate --workspace=@mvs-monitor/backend && npm run migrations:generate --workspace=@mvs-monitor/parse-auth-service",
+    "migrations:apply": "npm run migrations:apply --workspace=@mvs-monitor/backend && npm run migrations:apply --workspace=@mvs-monitor/parse-auth-service"
   },
   "workspaces": [
     "./apps/*",
@@ -19,7 +21,9 @@
     "typecript": "^0.0.1-security"
   },
   "dependencies": {
-    "@mvs-monitor/telegram-bot-service": "^1.0.0",
-    "nanoid": "^5.1.16"
+    "@mvs-monitor/backend": "^0.0.1",
+    "@mvs-monitor/parse-auth-service": "^0.0.1",
+    "@mvs-monitor/parse-service": "^0.0.1",
+    "@mvs-monitor/telegram-bot-service": "^1.0.0"
   }
 }

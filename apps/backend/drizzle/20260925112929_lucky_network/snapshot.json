@@ -1,0 +1,720 @@
+{
+  "version": "8",
+  "dialect": "postgres",
+  "id": "556d9e47-7673-4a8d-bca5-540b8c99bff8",
+  "prevIds": [
+    "80d92cbe-ecc6-401b-94ba-4e436ee7329c"
+  ],
+  "ddl": [
+    {
+      "name": "backend",
+      "entityType": "schemas"
+    },
+    {
+      "values": [
+        "telegram"
+      ],
+      "name": "sc_notification_target_type",
+      "entityType": "enums",
+      "schema": "backend"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "cities",
+      "entityType": "tables",
+      "schema": "backend"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "options",
+      "entityType": "tables",
+      "schema": "backend"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "regions",
+      "entityType": "tables",
+      "schema": "backend"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "sc_notification_targets",
+      "entityType": "tables",
+      "schema": "backend"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "service_center_options",
+      "entityType": "tables",
+      "schema": "backend"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "service_centers",
+      "entityType": "tables",
+      "schema": "backend"
+    },
+    {
+      "isRlsEnabled": false,
+      "name": "tg_users",
+      "entityType": "tables",
+      "schema": "backend"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "cities"
+    },
+    {
+      "type": "varchar",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "cities"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "region_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "cities"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "sort_order",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "cities"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "options"
+    },
+    {
+      "type": "varchar",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "options"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "external_option_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "options"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "parent_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "options"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "sort_order",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "options"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "regions"
+    },
+    {
+      "type": "varchar",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "regions"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "sort_order",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "regions"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "sc_notification_targets"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "service_center_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "sc_notification_targets"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "option_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "sc_notification_targets"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "tg_user_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "sc_notification_targets"
+    },
+    {
+      "type": "sc_notification_target_type",
+      "typeSchema": "backend",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "type",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "sc_notification_targets"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_center_options"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "service_center_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_center_options"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "option_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_center_options"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_centers"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "external_service_center_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_centers"
+    },
+    {
+      "type": "varchar",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "name",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_centers"
+    },
+    {
+      "type": "varchar",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "street",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_centers"
+    },
+    {
+      "type": "varchar",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "building",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_centers"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "city_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_centers"
+    },
+    {
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "name": "sort_order",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "service_centers"
+    },
+    {
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "uuidv7()",
+      "generated": null,
+      "identity": null,
+      "name": "id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "tg_users"
+    },
+    {
+      "type": "bigint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "telegram_id",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "tg_users"
+    },
+    {
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "name": "phone_number",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "tg_users"
+    },
+    {
+      "type": "timestamp",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "CURRENT_TIMESTAMP",
+      "generated": null,
+      "identity": null,
+      "name": "created_at",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "tg_users"
+    },
+    {
+      "type": "timestamp",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "CURRENT_TIMESTAMP",
+      "generated": null,
+      "identity": null,
+      "name": "updated_at",
+      "entityType": "columns",
+      "schema": "backend",
+      "table": "tg_users"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "region_id"
+      ],
+      "schemaTo": "backend",
+      "tableTo": "regions",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "cities_region_id_regions_id_fkey",
+      "entityType": "fks",
+      "schema": "backend",
+      "table": "cities"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "parent_id"
+      ],
+      "schemaTo": "backend",
+      "tableTo": "options",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "options_parent_id_options_id_fkey",
+      "entityType": "fks",
+      "schema": "backend",
+      "table": "options"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "service_center_id"
+      ],
+      "schemaTo": "backend",
+      "tableTo": "service_centers",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "sc_notification_targets_TRdoI9RkgWgO_fkey",
+      "entityType": "fks",
+      "schema": "backend",
+      "table": "sc_notification_targets"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "option_id"
+      ],
+      "schemaTo": "backend",
+      "tableTo": "options",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "sc_notification_targets_option_id_options_id_fkey",
+      "entityType": "fks",
+      "schema": "backend",
+      "table": "sc_notification_targets"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "tg_user_id"
+      ],
+      "schemaTo": "backend",
+      "tableTo": "tg_users",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "sc_notification_targets_tg_user_id_tg_users_id_fkey",
+      "entityType": "fks",
+      "schema": "backend",
+      "table": "sc_notification_targets"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "service_center_id"
+      ],
+      "schemaTo": "backend",
+      "tableTo": "service_centers",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "service_center_options_WgdpFCOOD2xj_fkey",
+      "entityType": "fks",
+      "schema": "backend",
+      "table": "service_center_options"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "option_id"
+      ],
+      "schemaTo": "backend",
+      "tableTo": "options",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "service_center_options_option_id_options_id_fkey",
+      "entityType": "fks",
+      "schema": "backend",
+      "table": "service_center_options"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "city_id"
+      ],
+      "schemaTo": "backend",
+      "tableTo": "cities",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "NO ACTION",
+      "name": "service_centers_city_id_cities_id_fkey",
+      "entityType": "fks",
+      "schema": "backend",
+      "table": "service_centers"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "cities_pkey",
+      "schema": "backend",
+      "table": "cities",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "options_pkey",
+      "schema": "backend",
+      "table": "options",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "regions_pkey",
+      "schema": "backend",
+      "table": "regions",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "sc_notification_targets_pkey",
+      "schema": "backend",
+      "table": "sc_notification_targets",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "service_center_options_pkey",
+      "schema": "backend",
+      "table": "service_center_options",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "service_centers_pkey",
+      "schema": "backend",
+      "table": "service_centers",
+      "entityType": "pks"
+    },
+    {
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "name": "tg_users_pkey",
+      "schema": "backend",
+      "table": "tg_users",
+      "entityType": "pks"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "external_option_id"
+      ],
+      "nullsNotDistinct": false,
+      "name": "options_external_option_id_key",
+      "schema": "backend",
+      "table": "options",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "telegram_id"
+      ],
+      "nullsNotDistinct": false,
+      "name": "tg_users_telegram_id_key",
+      "schema": "backend",
+      "table": "tg_users",
+      "entityType": "uniques"
+    },
+    {
+      "nameExplicit": false,
+      "columns": [
+        "phone_number"
+      ],
+      "nullsNotDistinct": false,
+      "name": "tg_users_phone_number_key",
+      "schema": "backend",
+      "table": "tg_users",
+      "entityType": "uniques"
+    }
+  ],
+  "renames": []
+}

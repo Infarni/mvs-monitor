@@ -1,6 +1,6 @@
 import { Bot, Context } from "grammy";
 import { SHOW_SERVICE_CENTERS_CALLBACK_QUERY_PREFIX, unpackShowServiceCentersCallbackQuery } from "../callback-queries/show-service-centers.callback-query.js";
-import { catalogClient } from "../clients/catalog.client.js";
+import { catalogClient } from "../../../common/clients/catalog.client.js";
 import { extractCallbackQueryData } from "../../../common/utils/extract-callback-query-data.util.js";
 import { ButtonUnactuallyException } from "../../../common/exceptions/button-unactually.exception.js";
 import { SELECT_SERVICE_CENTER_PAGE_SIZE } from "../constants/pagination.constant.js";
@@ -10,6 +10,7 @@ import { UnknownException } from "../../../common/exceptions/unknown.exception.j
 import { SHOW_SERVICE_CENTERS_RESPONSE_TEXT } from "../constants/texts.constant.js";
 import { getSelectServiceCenterKeyboard } from "../keyboards/select-service-center.keyboard.js";
 import { callbackQueryService } from "../../../common/services/callback-query.service.js";
+import { handleException } from "../../../common/utils/handle-exception.util.js";
 
 export function registerShowServiceCentersCallbackQueryHandler(bot: Bot): void {
   bot.callbackQuery(new RegExp(`^${SHOW_SERVICE_CENTERS_CALLBACK_QUERY_PREFIX}:(.+)$`), async (ctx: Context) => {
@@ -17,14 +18,16 @@ export function registerShowServiceCentersCallbackQueryHandler(bot: Bot): void {
 
     const unpackedData = await unpackShowServiceCentersCallbackQuery(cacheId);
     if (!unpackedData) {
-      throw new ButtonUnactuallyException()
+      await handleException(new ButtonUnactuallyException(), ctx);
+      return;
     }
 
     const { groupId, data } = unpackedData;
 
     catalogClient.getServiceCenters({ count: SELECT_SERVICE_CENTER_PAGE_SIZE, skip: (data.page - 1) * SELECT_SERVICE_CENTER_PAGE_SIZE, optionId: data.optionId, cityId: data.cityId }, async (err: ServiceError | null, response: GetServiceCentersResponse) => {
       if (err) {
-        throw new UnknownException()
+        await handleException(new UnknownException(), ctx);
+        return;
       }
 
       if (ctx.message?.text !== SHOW_SERVICE_CENTERS_RESPONSE_TEXT) {

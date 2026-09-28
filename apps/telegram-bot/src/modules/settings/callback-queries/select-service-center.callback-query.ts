@@ -5,12 +5,13 @@ export const SELECT_SERVICE_CENTER_CALLBACK_QUERY_PREFIX = "select-sc";
 
 export type SelectServiceCenterCallbackQueryData = {
   serviceCenterId: string;
+  optionId: string;
 }
 
 export async function packSelectServiceCenterCallbackQuery(storageItem: ICallbackQueryStorageItem<SelectServiceCenterCallbackQueryData>): Promise<string> {
   const { groupId, data } = storageItem;
 
-  const packData = data.serviceCenterId;
+  const packData = `${data.serviceCenterId},${data.optionId}`;
 
   const cacheId = await callbackQueryService.setData(packData, groupId);
 
@@ -28,8 +29,11 @@ export async function unpackSelectServiceCenterCallbackQuery(cacheId: string): P
     return null;
   }
 
+  const packedDataItems = packedData.split(",")
+
   const data: SelectServiceCenterCallbackQueryData = {
-    serviceCenterId: packedData
+    serviceCenterId: packedDataItems[0],
+    optionId: packedDataItems[1],
   }
 
   return {groupId, data}

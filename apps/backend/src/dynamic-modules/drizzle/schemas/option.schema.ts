@@ -1,7 +1,6 @@
 import {
   foreignKey,
   integer,
-  uniqueIndex,
   uuid,
   varchar,
 } from 'drizzle-orm/pg-core';
