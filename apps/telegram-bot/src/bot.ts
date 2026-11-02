@@ -3,7 +3,7 @@ import { registerWelcomeMasterHandler } from "./modules/welcome/master.handler.j
 import { registerSettingsMasterHandler } from "./modules/settings/master.handler.js";
 
 export function setupBot(): Bot {
-  const bot = new Bot("8842330100:AAHy0xxP3QTZ8E7LjmPxjGDnzJh9w4zcxwA");
+  const bot = new Bot(process.env.BOT_TOKEN);
 
   registerWelcomeMasterHandler(bot);
   registerSettingsMasterHandler(bot);
